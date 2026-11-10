@@ -338,5 +338,143 @@
 <script src="js/contact.js" defer></script>
 <script src="js/quick-contact.js" defer></script>
 <script src="js/bhoomishakti-language.js" defer></script>
+
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // =====================================
+    // 1. EMAILJS CONFIGURATION
+    // =====================================
+
+    const EMAILJS_PUBLIC_KEY = "vjFqisDhlmZSDdRkC";
+    const EMAILJS_SERVICE_ID = "service_go9pb65";
+    const EMAILJS_TEMPLATE_ID = "template_u5vsl3q";
+
+    // Initialize EmailJS
+    emailjs.init({
+        publicKey: EMAILJS_PUBLIC_KEY
+    });
+
+    // =====================================
+    // 2. CONNECT CONTACT FORM
+    // =====================================
+
+    const contactForm = document.getElementById("contact-form");
+
+    if (!contactForm) {
+        console.error("BhoomiShakti contact form not found.");
+        return;
+    }
+
+    const statusElement = contactForm.querySelector("[data-status]");
+    const submitButton = contactForm.querySelector(".btn-send");
+    const submitLabel = contactForm.querySelector(".send-label");
+
+    contactForm.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        // Check form validity
+        if (!contactForm.checkValidity()) {
+            contactForm.reportValidity();
+            return;
+        }
+
+        // =====================================
+        // 3. SPAM PROTECTION
+        // =====================================
+
+        const spamField = contactForm.querySelector(
+            '[name="company_website"]'
+        );
+
+        if (spamField && spamField.value.trim() !== "") {
+            console.warn("Spam submission blocked.");
+            return;
+        }
+
+        // =====================================
+        // 4. PREPARE EMAIL
+        // =====================================
+
+        const originalLabel = submitLabel
+            ? submitLabel.textContent
+            : "Send message";
+
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.classList.add("is-loading");
+        }
+
+        if (submitLabel) {
+            submitLabel.textContent = "Sending...";
+        }
+
+        if (statusElement) {
+            statusElement.textContent = "Sending your message...";
+            statusElement.className = "c-status";
+        }
+
+        try {
+
+            // Send all named form fields to EmailJS
+            const response = await emailjs.sendForm(
+                EMAILJS_SERVICE_ID,
+                EMAILJS_TEMPLATE_ID,
+                contactForm
+            );
+
+            console.log("EmailJS success:", response);
+
+            // =====================================
+            // 5. SUCCESS MESSAGE
+            // =====================================
+
+            if (statusElement) {
+                statusElement.textContent =
+                    "Your message has been sent successfully! Thank you for contacting BhoomiShakti.";
+
+                statusElement.classList.add("is-success");
+            }
+
+            // Reset form after successful submission
+            contactForm.reset();
+
+        } catch (error) {
+
+            // =====================================
+            // 6. ERROR HANDLING
+            // =====================================
+
+            console.error("EmailJS Error:", error);
+
+            if (statusElement) {
+                statusElement.textContent =
+                    "Sorry! Your message could not be sent. Please try again or contact us directly.";
+
+                statusElement.classList.add("is-error");
+            }
+
+        } finally {
+
+            // Restore button
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.classList.remove("is-loading");
+            }
+
+            if (submitLabel) {
+                submitLabel.textContent = originalLabel;
+            }
+
+        }
+
+    });
+
+});
+</script>
 </body>
 </html>
