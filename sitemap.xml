@@ -8,6 +8,14 @@
       <image:loc>https://www.bhoomishakti.in/assets/images/bhoomishakti-logo.png</image:loc>
     </image:image>
   </url>
+   <url>
+    <loc>https://www.bhoomishakti.in/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.bhoomishakti.in/assets/images/team/akshay-kumar-kn-founder-bhoomishakti.jpg</image:loc>
+    </image:image>
+  </url>
   <url>
     <loc>https://www.bhoomishakti.in/founder.html</loc>
     <lastmod>2026-11-09</lastmod>
