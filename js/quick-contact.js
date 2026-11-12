@@ -11,9 +11,9 @@
      SETTINGS — fill these in. Leave a value empty ('') to hide that button.
      --------------------------------------------------------------------- */
   var QC = {
-    whatsapp: '',            // digits with country code, no + or spaces, e.g. '919876543210'
-    phone: '',               // e.g. '+91 98765 43210'
-    email: '',               // e.g. 'team@bhoomishakti.in'
+    whatsapp: '919663570643',            // digits with country code, no + or spaces, e.g. '919876543210'
+    phone: '+91 96635 70643',               // e.g. '+91 98765 43210'
+    email: 'bhoomishakti.in@gmail.com',               // e.g. 'team@bhoomishakti.in'
     googleReviews: '',       // your Google Business "Ask for reviews" link, e.g. 'https://g.page/r/XXXX/review'
     // Hours shown on the WhatsApp card (India time, 24-hour clock). Set to null to hide the status line.
     hours: { days: [1, 2, 3, 4, 5, 6], open: 9, close: 18 },   // Mon–Sat, 9:00–18:00 IST
